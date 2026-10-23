@@ -1,0 +1,168 @@
+📋 Plan de Desarrollo: SupplierHistoryAI (Desafío 6 + Tema 8)1. Estructura de Directorios del ProyectoPlaintextSupplierHistoryAI/
+├── data/
+│   ├── database.json          # Base de datos estructurada (historial y métricas de proveedores)
+│   └── raw_docs/              # Documentos y contratos de prueba anonimizados en PDF/Markdown
+├── src/
+│   ├── __init__.py
+│   ├── data_manager.py        # Lógica de carga, actualización, fórmula de puntaje y reincidencias
+│   ├── rag_engine.py          # Conexión con ChromaDB y Ollama (RAG local con citas de fuente)
+│   └── app.py                 # Interfaz principal en Streamlit (Roles, Vistas y Chat)
+├── .env.example               # Plantilla de configuración de entorno
+├── requirements.txt           # Dependencias del proyecto
+└── README.md                  # Documentación oficial para el jurado
+2. Fuente de Datos de Prueba (data/database.json)Este archivo centraliza el historial estructurado de los proveedores, separando los hechos verificables de las evaluaciones subjetivas.JSON{
+  "proveedores": [
+    {
+      "id": "PROV-001",
+      "nombre": "Soluciones Tecnológicas S.A.",
+      "ruc": "80012345-6",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2025-012",
+          "fecha_comprometida": "2025-06-15",
+          "fecha_entrega_real": "2025-06-14",
+          "dias_atraso": 0,
+          "monto_adjudicado": 45000000,
+          "multa_aplicada": 0,
+          "calidad_tecnica": 5,
+          "satisfaccion": 5,
+          "dependencia_evaluadora": "Dirección de Tecnologías de la Información",
+          "reclamos": [],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2025-06-16",
+              "autor": "Ing. Carlos Gómez",
+              "tipo": "Soporte",
+              "texto": "Equipamiento entregado en óptimas condiciones y operando según especificaciones.",
+              "es_hecho": true
+            }
+          ],
+          "documento_origen": "data/raw_docs/contrato_012_soluciones.pdf"
+        }
+      ]
+    },
+    {
+      "id": "PROV-002",
+      "nombre": "Constructora e Inmobiliaria del Sur",
+      "ruc": "80098765-4",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2025-045",
+          "fecha_comprometida": "2025-09-30",
+          "fecha_entrega_real": "2025-09-28",
+          "dias_atraso": 0,
+          "monto_adjudicado": 120000000,
+          "multa_aplicada": 0,
+          "calidad_tecnica": 2,
+          "satisfaccion": 2,
+          "dependencia_evaluadora": "Departamento de Infraestructura y Mantenimiento",
+          "reclamos": [
+            {
+              "fecha": "2025-10-05",
+              "tipo": "Calidad",
+              "descripcion": "Defectos en terminaciones de pintura y filtraciones menores detectadas tras la entrega.",
+              "estado": "Resuelto con demora"
+            }
+          ],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2025-10-02",
+              "autor": "Arq. María Benítez",
+              "tipo": "Calidad",
+              "texto": "Cumplió formalmente con la fecha de entrega en los papeles, pero la calidad de los acabados fue deficiente.",
+              "es_hecho": false
+            }
+          ],
+          "documento_origen": "data/raw_docs/contrato_045_constructora.pdf"
+        }
+      ]
+    },
+    {
+      "id": "PROV-003",
+      "nombre": "Papelera y Librería Central",
+      "ruc": "80055544-1",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2026-003",
+          "fecha_comprometida": "2026-02-10",
+          "fecha_entrega_real": "2026-02-25",
+          "dias_atraso": 15,
+          "monto_adjudicado": 15000000,
+          "multa_aplicada": 750000,
+          "calidad_tecnica": 3,
+          "satisfaccion": 2,
+          "dependencia_evaluadora": "Dirección General Administrativa",
+          "reclamos": [
+            {
+              "fecha": "2026-02-12",
+              "tipo": "Plazo",
+              "descripcion": "Demora injustificada en la entrega de insumos de oficina para el inicio de clases.",
+              "estado": "Cerrado con multa"
+            },
+            {
+              "fecha": "2026-02-20",
+              "tipo": "Plazo",
+              "descripcion": "Segunda demora consecutiva en la reposición parcial de ítems faltantes.",
+              "estado": "Registrado"
+            }
+          ],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2026-02-26",
+              "autor": "Lic. Juan Pérez",
+              "tipo": "Plazo",
+              "texto": "Proveedor reincidente en plazos de entrega fuera de lo estipulado en el pliego.",
+              "es_hecho": true
+            }
+          ],
+          "documento_origen": "data/raw_docs/contrato_003_papelera.pdf"
+        }
+      ]
+    }
+  ]
+}
+3. Lógica de Evaluación (Fórmula y Semáforo en Pandas)El puntaje global ($P$) se calcula matemáticamente de forma transparente mediante la siguiente ponderación:$$P = 0.30 \cdot S_{\text{plazo}} + 0.30 \cdot S_{\text{calidad}} + 0.25 \cdot S_{\text{satisfaccion}} + 0.15 \cdot S_{\text{reclamos}}$$Semáforo:🟢 Verde ($P \ge 75$ y sin reincidencias): Proveedor recomendable.🟡 Amarillo ($50 \le P < 74$ o 1 reincidencia): Usar con seguimiento estricto.🔴 Rojo ($P < 50$ o reincidencia crítica en calidad/plazos): Requiere justificación especial para contratar.Alerta de Contradicción: Si el componente de plazo es superior a 80 pero la calidad técnica es menor a 50, el sistema emite la alerta automática: "Cumplió formalmente en plazo, pero con resultado deficiente".4. Documentación Oficial (README.md)Markdown# SupplierHistoryAI 🏢🤖
+
+Demo funcional con inteligencia artificial local (RAG) para la centralización del historial, evaluación de proveedores y control de contratos en la Universidad Nacional de Itapúa (UNI).
+
+---
+
+## 🎯 Descripción del Desafío
+Este proyecto combina el **Desafío 6 (Historial de proveedores)** con el **Tema transversal 8 (IA propia con recursos limitados)**. Resuelve el problema de la información dispersa y la evaluación basada únicamente en el cumplimiento formal en papel, integrando métricas de calidad técnica real, satisfacción y detección automática de reincidencias en un entorno 100% local y seguro.
+
+---
+
+## 🧱 Stack Tecnológico
+* **Lenguaje:** Python 3.10+
+* **Interfaz:** Streamlit
+* **Procesamiento y Métricas:** Pandas
+* **Base de Datos Vectorial:** ChromaDB
+* **Motor de IA Local:** Ollama (Llama 3.1 8B / Qwen 2.5 7B o modelos de respaldo de 3B).
+
+---
+
+## 💻 Propuesta de Hardware y Costos (Tema 8)
+
+### Escenario Mínimo (Apto para Notebooks o PCs de Oficina)
+* **CPU:** 4 a 8 núcleos / **RAM:** 16 GB / **GPU:** Integrada o dedicada básica.
+* **Modelo LLM de Respaldo:** `qwen2.5:3b` o `llama3.2:3b` (ejecución fluida en CPU).
+
+### Escenario Recomendado (Estación de Trabajo / Servidor On-Premise)
+* **CPU:** Intel Core i7 / AMD Ryzen 7 / **RAM:** 32 GB DDR4/DDR5.
+* **GPU:** NVIDIA RTX 3060 / 4060 (12 GB VRAM).
+* **Modelo LLM Principal:** `llama3.1:8b` o `qwen2.5:7b`.
+* **Inversión Única de Hardware:** Aprox. $1,000 – $1,300 USD.
+* **Costo Operativo Mensual:** Menos de $15 – $25 USD en energía eléctrica (calculado sobre uso diario promedio de oficina a tarifa local estándar). Cero costos por tokens o licencias en la nube.
+
+---
+
+## 🚀 Guía Rápida de Instalación
+
+1. Clonar el repositorio y acceder a la carpeta:
+   ```bash
+   git clone [https://github.com/tu-usuario/SupplierHistoryAI.git](https://github.com/tu-usuario/SupplierHistoryAI.git)
+   cd SupplierHistoryAI
+Instalar las dependencias:Bashpip install -r requirements.txt
+Asegurarse de tener Ollama instalado y corriendo localmente con el modelo elegido:Bashollama run llama3.1:8b
+Ejecutar la aplicación web en Streamlit:Bashstreamlit run src/app.py
+

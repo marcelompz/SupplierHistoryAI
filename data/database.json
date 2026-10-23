@@ -1,0 +1,182 @@
+{
+  "proveedores": [
+    {
+      "id": "PROV-001",
+      "nombre": "Soluciones Tecnológicas S.A.",
+      "ruc": "80012345-6",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2025-012",
+          "fecha_comprometida": "2025-06-15",
+          "fecha_entrega_real": "2025-06-14",
+          "dias_atraso": 0,
+          "monto_adjudicado": 45000000,
+          "multa_aplicada": 0,
+          "calidad_tecnica": 5,
+          "satisfaccion": 5,
+          "dependencia_evaluadora": "Dirección de Tecnologías de la Información",
+          "reclamos": [],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2025-06-16",
+              "autor": "Ing. Carlos Gómez",
+              "tipo": "Soporte",
+              "texto": "Equipamiento entregado en óptimas condiciones y operando según especificaciones.",
+              "es_hecho": true
+            }
+          ],
+          "documento_origen": "/opt/supplier_history_ai/DocumentosAnonimizados/Documentos Anonimizados/Documento_Anonimizado_01.docx"
+        }
+      ]
+    },
+    {
+      "id": "PROV-002",
+      "nombre": "Constructora e Inmobiliaria del Sur",
+      "ruc": "80098765-4",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2025-045",
+          "fecha_comprometida": "2025-09-30",
+          "fecha_entrega_real": "2025-09-28",
+          "dias_atraso": 0,
+          "monto_adjudicado": 120000000,
+          "multa_aplicada": 0,
+          "calidad_tecnica": 2,
+          "satisfaccion": 2,
+          "dependencia_evaluadora": "Departamento de Infraestructura y Mantenimiento",
+          "reclamos": [
+            {
+              "fecha": "2025-10-05",
+              "tipo": "Calidad",
+              "descripcion": "Defectos en terminaciones de pintura y filtraciones menores detectadas tras la entrega.",
+              "estado": "Resuelto con demora"
+            }
+          ],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2025-10-02",
+              "autor": "Arq. María Benítez",
+              "tipo": "Calidad",
+              "texto": "Cumplió formalmente con la fecha de entrega en los papeles, pero la calidad de los acabados fue deficiente.",
+              "es_hecho": false
+            }
+          ],
+          "documento_origen": "/opt/supplier_history_ai/DocumentosAnonimizados/Documentos Anonimizados/Documento_Anonimizado_02.docx"
+        }
+      ]
+    },
+    {
+      "id": "PROV-003",
+      "nombre": "Papelera y Librería Central",
+      "ruc": "80055544-1",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2026-003",
+          "fecha_comprometida": "2026-02-10",
+          "fecha_entrega_real": "2026-02-25",
+          "dias_atraso": 15,
+          "monto_adjudicado": 15000000,
+          "multa_aplicada": 750000,
+          "calidad_tecnica": 3,
+          "satisfaccion": 2,
+          "dependencia_evaluadora": "Dirección General Administrativa",
+          "reclamos": [
+            {
+              "fecha": "2026-02-12",
+              "tipo": "Plazo",
+              "descripcion": "Demora injustificada en la entrega de insumos de oficina para el inicio de clases.",
+              "estado": "Cerrado con multa"
+            },
+            {
+              "fecha": "2026-02-20",
+              "tipo": "Plazo",
+              "descripcion": "Segunda demora consecutiva en la reposición parcial de ítems faltantes.",
+              "estado": "Registrado"
+            }
+          ],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2026-02-26",
+              "autor": "Lic. Juan Pérez",
+              "tipo": "Plazo",
+              "texto": "Proveedor reincidente en plazos de entrega fuera de lo estipulado en el pliego.",
+              "es_hecho": true
+            }
+          ],
+          "documento_origen": "/opt/supplier_history_ai/DocumentosAnonimizados/Documentos Anonimizados/Documento_Anonimizado_03.docx"
+        }
+      ]
+    },
+    {
+      "id": "PROV-004",
+      "nombre": "Alimentos del Valle",
+      "ruc": "80123456-7",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2026-001",
+          "fecha_comprometida": "2026-01-15",
+          "fecha_entrega_real": "2026-01-14",
+          "dias_atraso": 0,
+          "monto_adjudicado": 85000000,
+          "multa_aplicada": 0,
+          "calidad_tecnica": 4,
+          "satisfaccion": 4,
+          "dependencia_evaluadora": "Dirección de Compras Públicas",
+          "reclamos": [],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2026-01-16",
+              "autor": "Dr. Sandra López",
+              "tipo": "Calidad",
+              "texto": "Producto entregado según especificaciones técnicas, excelente calidad.",
+              "es_hecho": true
+            }
+          ],
+          "documento_origen": "/opt/supplier_history_ai/DocumentosAnonimizados/Documentos Anonimizados/Documento_Anonimizado_04.docx"
+        }
+      ]
+    },
+    {
+      "id": "PROV-005",
+      "nombre": "Transportes Rápidos del Norte",
+      "ruc": "80234567-8",
+      "contratos": [
+        {
+          "contrato_id": "CONT-2025-078",
+          "fecha_comprometida": "2025-12-10",
+          "fecha_entrega_real": "2025-12-20",
+          "dias_atraso": 10,
+          "monto_adjudicado": 200000000,
+          "multa_aplicada": 2000000,
+          "calidad_tecnica": 1,
+          "satisfaccion": 1,
+          "dependencia_evaluadora": "Secretaría de Obras Públicas",
+          "reclamos": [
+            {
+              "fecha": "2025-12-15",
+              "tipo": "Plazo",
+              "descripcion": "Incumplimiento de plazo de entrega por falta de planificación.",
+              "estado": "Cerrado con multa"
+            },
+            {
+              "fecha": "2025-12-25",
+              "tipo": "Calidad",
+              "descripcion": "Daño en unidades de transporte durante el traslado.",
+              "estado": "En trámite"
+            }
+          ],
+          "observaciones_tecnicas": [
+            {
+              "fecha": "2025-12-21",
+              "autor": "Ing. Roberto Silva",
+              "tipo": "Plazo",
+              "texto": "Proveedor reincidente en incumplimientos de plazos y calidad deficiente.",
+              "es_hecho": true
+            }
+          ],
+          "documento_origen": "/opt/supplier_history_ai/DocumentosAnonimizados/Documentos Anonimizados/Documento_Anonimizado_05.docx"
+        }
+      ]
+    }
+  ]
+}
